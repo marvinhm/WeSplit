@@ -10,9 +10,16 @@ import SwiftUI
     
 struct ContentView: View {
     @State var count = 0
-   
+    @State private var name: String = ""
     var body: some View {
         NavigationView {
+            Section {
+                Form {
+                    TextField("Enter your name", text: $name)
+                    Text("Hello \(name)")
+                }
+            }
+            
             Section {
                 Button("Tap Count: \(count)") {
                    self.count += 1
