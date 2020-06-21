@@ -7,12 +7,16 @@
 //
 
 import SwiftUI
+    
+  struct ContentView: View {
+       @State var count = 0
 
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
-    }
-}
+       var body: some View {
+           Button("Tap Count: \(count)") {
+               self.count += 1
+           }
+       }
+   }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
