@@ -9,25 +9,34 @@
 import SwiftUI
     
 struct ContentView: View {
-    @State var count = 0
-    @State private var name: String = ""
+    @State private var checkAmount = ""
+    @State private var numberOfPeople = 2
+    @State private var percentageOfTip = 2
+
+    let percetageTip = [10, 15, 20, 25, 0]
+    
     var body: some View {
         NavigationView {
-            Section {
-                Form {
-                    TextField("Enter your name", text: $name)
-                    Text("Hello \(name)")
+            Form {
+                Section {
+                    TextField("Amount", text: $checkAmount)
+                        .keyboardType(.decimalPad)
+                    
+                    Picker("Number of people", selection: $numberOfPeople) {
+                        ForEach(2 ..< 100) {
+                            Text("\($0) people")
+                        }
+                    }
+                }
+                
+                Section {
+                    Text("£ \(checkAmount)")
                 }
             }
-            
-            Section {
-                Button("Tap Count: \(count)") {
-                   self.count += 1
-                }
-            }
-            .navigationBarTitle("Duka X Swift", displayMode: .inline)
+            .navigationBarTitle("WeSplit")
         }
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
