@@ -10,12 +10,13 @@ import SwiftUI
     
 struct ContentView: View {
     @State private var checkAmount = ""
-    @State private var numberOfPeople = 2
+    @State private var numberOfPeople = ""
     @State private var percentageTip = 2
 
     let tipPercentages = [10, 15, 20, 25, 0]
     var totalPerPerson: Double {
-        let peopleCount = Double(numberOfPeople + 2)
+        let numberOfPeeps = Double(numberOfPeople) ?? 0
+        let peopleCount = Double(numberOfPeeps + 2)
         let tipSelection = Double(tipPercentages[percentageTip])
         let orderAmount = Double(checkAmount) ?? 0
 
@@ -26,6 +27,16 @@ struct ContentView: View {
         return amountPerPerson
     }
     
+    var originalAmountPlusTip: Double {
+        let orderAmount = Double(checkAmount) ?? 0
+        let tipSelection = Double(tipPercentages[percentageTip])
+        let tipValue = orderAmount / 100 * tipSelection
+        
+        let grandTotal = orderAmount + tipValue
+        
+        return grandTotal
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -33,11 +44,8 @@ struct ContentView: View {
                     TextField("Amount", text: $checkAmount)
                         .keyboardType(.decimalPad)
                     
-                    Picker("Number of people", selection: $numberOfPeople) {
-                        ForEach(2 ..< 100) {
-                            Text("\($0) people")
-                        }
-                    }
+                    TextField("Number Of People", text: $numberOfPeople)
+                        .keyboardType(.decimalPad)
                 }
                 
                 
@@ -50,8 +58,12 @@ struct ContentView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
-                Section {
+                Section(header: Text("Amount Per Person")) {
                     Text("£ \(totalPerPerson, specifier: "%.2f")")
+                }
+                
+                Section(header: Text("Original Amount + tip")) {
+                    Text("£ \(originalAmountPlusTip, specifier: "%.2f")")
                 }
             }
             .navigationBarTitle("WeSplit")
