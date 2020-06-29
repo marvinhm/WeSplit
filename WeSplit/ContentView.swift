@@ -15,14 +15,13 @@ struct ContentView: View {
 
     let tipPercentages = [10, 15, 20, 25, 0]
     var totalPerPerson: Double {
-        let numberOfPeeps = Double(numberOfPeople) ?? 0
-        let peopleCount = Double(numberOfPeeps + 2)
+        let numberOfPeeps = Double(numberOfPeople) ?? 0.00
         let tipSelection = Double(tipPercentages[percentageTip])
         let orderAmount = Double(checkAmount) ?? 0
 
-        let tipValue = orderAmount / 100 * tipSelection
+        let tipValue = (orderAmount / 100) * tipSelection
         let grandTotal = orderAmount + tipValue
-        let amountPerPerson = grandTotal / peopleCount
+        let amountPerPerson = grandTotal / numberOfPeeps
         
         return amountPerPerson
     }
@@ -30,7 +29,7 @@ struct ContentView: View {
     var originalAmountPlusTip: Double {
         let orderAmount = Double(checkAmount) ?? 0
         let tipSelection = Double(tipPercentages[percentageTip])
-        let tipValue = orderAmount / 100 * tipSelection
+        let tipValue = (orderAmount / 100) * tipSelection
         
         let grandTotal = orderAmount + tipValue
         
