@@ -1,4 +1,4 @@
-## WeSplit
+# WeSplit
 An App that helps with the annoying task of splitting a bill between a group after a meal.
 
 ## Motivation
